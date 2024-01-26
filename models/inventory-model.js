@@ -25,4 +25,27 @@ async function getInventoryByClassificationId(classification_id) {
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId}
+async function getInventoryById(inventory_id) {
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.inventory WHERE inv_id = $1`,
+      [inventory_id]
+    )
+    return data.rows[0]
+  } catch (error) {
+    console.error("getInventoryById error" + error.status)
+  }
+}
+
+async function getError() {
+  try {
+    const data = await pool.query(
+      `SELECT * FROdasic.sd WHERE inv_id =1`
+    )
+    return data.rows[0]
+  } catch (error) {
+    console.error("get error =" + error.status)
+  }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getInventoryById, getError}

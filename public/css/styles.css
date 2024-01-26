@@ -128,9 +128,31 @@ nav ul li {
   text-align: center;
 }
 
+#errorNotFound img{
+  width: 90%;
+}
+
 #inv-display li a img {
   width: 80%;
 }
+
+#carDetails {
+  padding: 5%;
+}
+
+#carDetails img{
+  width: 100%;
+}
+
+#carDescription {
+  text-align: center;
+  font-size: 2em;
+}
+
+#carDescription li {
+list-style: none;
+}
+
 @media (min-width:961px)  {
   body {
     background-image: url('/images/site/checkerboard.jpg');
@@ -177,5 +199,15 @@ nav ul li {
     display: grid;
     grid-template-columns:1fr 1fr 1fr;
     column-gap: 20px;
+  }
+
+  #carDetails {
+    display: flex;
+    align-items: center;
+  }
+
+  #carDetails img{
+    width: 50%;
+    height: 50%;
   }
 }
