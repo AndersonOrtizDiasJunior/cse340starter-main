@@ -1,0 +1,9 @@
+<div id="errorNotFound">
+    <% if (title) { %>
+        <h1><%= title %></h1>
+        <% } else {
+          res.redirect('/')
+        } %>
+    <h1>Page not found</h1>
+    <img src="/images/404.jpg" alt="Man staring at an empty parking lot, where his car was supposed to be."/>
+</div>

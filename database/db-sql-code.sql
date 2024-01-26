@@ -180,6 +180,6 @@ SET inv_image = CONCAT(
         '/images/vehicles/',
         SUBSTRING(
             inv_thumbnail
-            FROM 9
+            FROM 13
         )
     );
