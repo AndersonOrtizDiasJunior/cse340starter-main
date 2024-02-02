@@ -153,6 +153,57 @@ nav ul li {
 list-style: none;
 }
 
+.accountForm{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-left: 10%;
+  text-align: center;
+  background-color: #11B5D6;
+  padding: 25px;
+  font-size: 2em;
+  border-radius: 15px;
+}
+
+.accountForm input {
+  width: 80%;
+  height: 3em;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.accountForm button {
+  width: 30%;
+  height: 2em;
+  font-size: 1em;
+  border-radius: 15px;
+  background-color: white;
+  color: black;
+}
+
+.accountForm button:hover {
+  color: white;
+  background-color: blue;
+}
+.accountForm .field {
+  margin-left: 10%;
+  text-align: left;
+}
+
+input:required:invalid, input:focus:invalid {
+  border-color: red;
+  color: red;
+ }
+
+input:required:valid {
+    border-color: black;
+    color: black;
+  }
+
+  .accountForm .field span {
+    font-size: .5em;
+  }
+
 @media (min-width:961px)  {
   body {
     background-image: url('/images/site/checkerboard.jpg');
