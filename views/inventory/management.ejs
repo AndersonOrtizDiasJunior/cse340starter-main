@@ -1,0 +1,9 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+    <div id="managerDash">
+      <a href="/inv/addInventory">Add Item to inventory</a><br><br><br><br>
+      <a href="/inv/addClassification">Add Classification</a>
+    </div>

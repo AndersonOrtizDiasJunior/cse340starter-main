@@ -51,4 +51,96 @@ invCont.buildCarDetailPageById = async function (req, res, next) {
   
 }
 
+invCont.buildManagement  = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/management", {
+    title: "Maneger Dashboard",
+    nav,
+    errors: null,
+  })
+}
+
+invCont.buildAddClassification  = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/addClassification", {
+    title: "Add Classification",
+    nav,
+    errors: null,
+  })
+}
+
+invCont.postClassification = async function (req, res) {
+  let nav = await utilities.getNav()
+  const classification_name = req.body.classification_name
+
+  const regResult = await invModel.addClassification(classification_name)
+
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Congratulations, the Classfifcartion ${classification_name} was added.`
+    )
+    res.status(201).render("inventory/addClassification", {
+      title: "Add Classification",
+      nav,
+      errors: null,
+    })
+  } else {
+    req.flash("notice", "Sorry, an error ocurred.")
+    res.status(501).render("inv/addClassification", {
+      title: "Add Classification",
+      nav,
+      errors: null,
+    })
+  }
+}
+
+invCont.postInventory = async function (req, res) {
+  let nav = await utilities.getNav()
+  let classificationList = await utilities.getClassificationSelects()
+  const inv_make = req.body.inv_make 
+  const inv_model = req.body.inv_model;
+  const inv_year = req.body.inv_year;
+  const inv_description = req.body.inv_description;
+  const inv_image = req.body.inv_image;
+  const inv_thumbnail = req.body.inv_thumbnail;
+  const inv_price = parseFloat(req.body.inv_price);
+  const inv_miles = parseInt(req.body.inv_miles);
+  const inv_color = req.body.inv_color;
+  const classification_id = parseInt(req.body.classification_id);
+  const regResult = await invModel.addInventory(inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail,inv_price, inv_miles,inv_color, classification_id)
+
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Congratulations, the Inventory ${inv_make + " " + inv_model} was added.`
+    )
+    res.status(201).render("inventory/addInventory", {
+      title: "Add Inventory",
+      nav,
+      classificationList,
+      errors: null,
+    })
+  } else {
+    req.flash("notice", "Sorry, an error ocurred.")
+    res.status(501).render("inv/addInventory", {
+      title: "Add Inventory",
+      nav,
+      classificationList,
+      errors: null,
+    })
+  }
+}
+
+invCont.buildAddInventory  = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  let classificationList = await utilities.getClassificationSelects()
+  res.render("./inventory/addInventory", {
+    title: "Add Inventory",
+    nav,
+    classificationList,
+    errors: null,
+  })
+}
+
 module.exports = invCont

@@ -165,11 +165,15 @@ list-style: none;
   border-radius: 15px;
 }
 
-.accountForm input {
+.accountForm input, .accountForm select, .accountForm textarea {
   width: 80%;
   height: 3em;
   border-radius: 15px;
   padding: 10px;
+}
+
+.accountForm textarea {
+  height: 6em;
 }
 
 .accountForm button {
@@ -203,6 +207,22 @@ input:required:valid {
   .accountForm .field span {
     font-size: .5em;
   }
+
+  #managerDash {
+    text-align: center;
+    font-size: 2em;
+  }
+
+  #managerDash a{
+    text-align: center;
+    background-color: #11B5D6;
+    padding: 15px;
+    margin-bottom: 60px;
+    text-decoration: none;
+    border-radius: 20px;
+    color: white;
+  }
+
 
 @media (min-width:961px)  {
   body {
