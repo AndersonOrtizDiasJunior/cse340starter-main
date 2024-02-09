@@ -1,0 +1,44 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+  <a href="/inv/management">Return to Dashboard</a>
+  <p>Confirm Deletion - The delete is permanent.</p>
+  <form action="/inv/delete" method="post" class="accountForm">
+    <input type="hidden" name="inv_id"
+<% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+<% } %>>
+    <div class="container">
+        <div class="field">
+            <label for="inv_make"><b>Make</b></label><br>
+            <input readonly type="text" placeholder="Enter Make" name="inv_make" required value="<%= locals.inv_make %>">
+        </div><br>
+
+        <div class="field">
+            <label for="inv_model"><b>Model</b></label><br>
+            <input readonly type="text" placeholder="Enter Model" name="inv_model" required value="<%= locals.inv_model %>">
+        </div><br>
+
+        <div class="field">
+            <label for="inv_year"><b>Year</b></label><br>
+            <input readonly type="number" placeholder="Enter Year" name="inv_year" required value="<%= locals.inv_year %>" min="0" max="<%= new Date().getFullYear() %>">
+        </div><br>
+
+        <div class="field">
+            <label for="inv_price"><b>Price</b></label><br>
+            <input readonly type="number" placeholder="Enter Price" name="inv_price" required value="<%= locals.inv_price %>">
+        </div><br>
+
+        <button type="submit">Delete</button>
+    </div>
+</form>

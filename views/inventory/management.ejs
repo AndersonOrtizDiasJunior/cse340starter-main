@@ -3,7 +3,17 @@
     <% } else {
       res.redirect('/')
     } %>
+    <%- messages() %>
     <div id="managerDash">
       <a href="/inv/addInventory">Add Item to inventory</a><br><br><br><br>
       <a href="/inv/addClassification">Add Classification</a>
     </div>
+
+    <h2>Manage Inventory</h2>
+    <table id="inventoryDisplay"></table>
+    <noscript>JavaScript must be enabled to use this page.</noscript>
+    <select id="classificationList" required>
+      <%- classificationSelect %>
+      </select>
+    
+    <script src="../../js/inventory.js"></script>
