@@ -12,10 +12,12 @@ try {
   const data = await invModel.getInventoryByClassificationId(classification_id)
   const grid = await utilities.buildClassificationGrid(data)
   let nav = await utilities.getNav()
+  let tools = await utilities.getTools(res.locals)
   const className = data[0].classification_name
   res.render("./inventory/classification", {
     title: className + " vehicles",
     nav,
+    tools,
     grid,
   })
 }
@@ -34,10 +36,12 @@ invCont.buildCarDetailPageById = async function (req, res, next) {
     const data = await invModel.getInventoryById(inventoryId)
     const grid = await utilities.buildDetaiilsGrid(data)
     let nav = await utilities.getNav()
+    let tools = await utilities.getTools(res.locals)
     const vehicleName = `${data.inv_make} ${data.inv_model}`;
     res.render("./inventory/carDetails", {
       title: vehicleName + " details",
       nav,
+      tools,
       grid,
     })
   }
@@ -53,10 +57,12 @@ invCont.buildCarDetailPageById = async function (req, res, next) {
 
 invCont.buildManagement  = async function (req, res, next) {
   let nav = await utilities.getNav()
+  let tools = await utilities.getTools(res.locals)
   const classificationSelect = await utilities.getClassificationSelects(0, true)
   res.render("./inventory/management", {
     title: "Maneger Dashboard",
     nav,
+    tools,
     classificationSelect,
     errors: null,
   })
@@ -68,12 +74,14 @@ invCont.buildManagement  = async function (req, res, next) {
 invCont.buildEdit = async function (req, res, next) {
   const inv_id = parseInt(req.params.inv_id)
   let nav = await utilities.getNav()
+  let tools = await utilities.getTools(res.locals)
   const itemData = await invModel.getInventoryById(inv_id)
   const classificationSelect = await utilities.getClassificationSelects(itemData.classification_id)
   const itemName = `${itemData.inv_make} ${itemData.inv_model}`
   res.render("./inventory/edit-inventory", {
     title: "Edit " + itemName,
     nav,
+    tools,
     classificationSelect: classificationSelect,
     errors: null,
     inv_id: itemData.inv_id,
@@ -95,6 +103,7 @@ invCont.buildEdit = async function (req, res, next) {
  * ************************** */
 invCont.postEditInventory = async function (req, res, next) {
   let nav = await utilities.getNav()
+  let tools = await utilities.getTools(res.locals)
   const {
     inv_id,
     inv_make,
@@ -133,6 +142,7 @@ invCont.postEditInventory = async function (req, res, next) {
     res.status(501).render("inventory/edit-inventory", {
     title: "Edit " + itemName,
     nav,
+    tools,
     classificationSelect: classificationSelect,
     errors: null,
     inv_id,
@@ -156,11 +166,13 @@ invCont.postEditInventory = async function (req, res, next) {
 invCont.buildDeletion = async function (req, res, next) {
   const inv_id = parseInt(req.params.inv_id)
   let nav = await utilities.getNav()
+  let tools = await utilities.getTools(res.locals)
   const itemData = await invModel.getInventoryById(inv_id)
   const itemName = `${itemData.inv_make} ${itemData.inv_model}`
   res.render("./inventory/delete-confirm", {
     title: "Delete " + itemName,
     nav,
+    tools,
     errors: null,
     inv_id: itemData.inv_id,
     inv_make: itemData.inv_make,
@@ -175,6 +187,7 @@ invCont.buildDeletion = async function (req, res, next) {
  * ************************** */
 invCont.postDeletion = async function (req, res, next) {
   let nav = await utilities.getNav()
+  let tools = await utilities.getTools(res.locals)
   const inv_id = parseInt(req.body.inv_id)
 
   const deleteResult = await invModel.deleteInventoryItem(inv_id)
@@ -189,6 +202,7 @@ invCont.postDeletion = async function (req, res, next) {
     res.status(501).render("inventory/delete-confirm", {
     title: "Delete " + itemName,
     nav,
+    tools,
     errors: null,
     inv_id,
     inv_make,
@@ -214,15 +228,18 @@ invCont.getInventoryJSON = async (req, res, next) => {
 
 invCont.buildAddClassification  = async function (req, res, next) {
   let nav = await utilities.getNav()
+  let tools = await utilities.getTools(res.locals)
   res.render("./inventory/addClassification", {
     title: "Add Classification",
     nav,
+    tools,
     errors: null,
   })
 }
 
 invCont.postClassification = async function (req, res) {
   let nav = await utilities.getNav()
+  let tools = await utilities.getTools(res.locals)
   const classification_name = req.body.classification_name
 
   const regResult = await invModel.addClassification(classification_name)
@@ -235,6 +252,7 @@ invCont.postClassification = async function (req, res) {
     res.status(201).render("inventory/addClassification", {
       title: "Add Classification",
       nav,
+      tools,
       errors: null,
     })
   } else {
@@ -242,6 +260,7 @@ invCont.postClassification = async function (req, res) {
     res.status(501).render("inv/addClassification", {
       title: "Add Classification",
       nav,
+      tools,
       errors: null,
     })
   }
@@ -249,6 +268,7 @@ invCont.postClassification = async function (req, res) {
 
 invCont.postInventory = async function (req, res) {
   let nav = await utilities.getNav()
+  let tools = await utilities.getTools(res.locals)
   let classificationList = await utilities.getClassificationSelects()
   const inv_make = req.body.inv_make 
   const inv_model = req.body.inv_model;
@@ -270,6 +290,7 @@ invCont.postInventory = async function (req, res) {
     res.status(201).render("inventory/addInventory", {
       title: "Add Inventory",
       nav,
+      tools,
       classificationList,
       errors: null,
     })
@@ -278,6 +299,7 @@ invCont.postInventory = async function (req, res) {
     res.status(501).render("inv/addInventory", {
       title: "Add Inventory",
       nav,
+      tools,
       classificationList,
       errors: null,
     })
@@ -286,10 +308,12 @@ invCont.postInventory = async function (req, res) {
 
 invCont.buildAddInventory  = async function (req, res, next) {
   let nav = await utilities.getNav()
+  let tools = await utilities.getTools(res.locals)
   let classificationList = await utilities.getClassificationSelects()
   res.render("./inventory/addInventory", {
     title: "Add Inventory",
     nav,
+    tools,
     classificationList,
     errors: null,
   })

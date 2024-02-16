@@ -1,11 +1,12 @@
 const invModel = require("../models/inventory-model")
+const accModel = require("../models/account-model")
 const Util = {}
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 
 
 /* ************************
- * Constructs the nav HTML unordered list
+ * Constructs the HTML parts
  ************************** */
 Util.getNav = async function (req, res, next) {
   let data = await invModel.getNotEmptyClassifications()
@@ -54,6 +55,30 @@ Util.getClassificationSelects = async function (id = 0, notEmpty = false , req, 
   return options
 }
 
+Util.getTools = async function (locals, req, res, next) {
+  let tools = ""
+  if (locals.loggedin) { 
+  let accInfo = await accModel.getAccountByID(locals.accountData.account_id)
+  tools += `<a title="Check your Account" href="/account/">Welcome, ${accInfo.account_firstname}</a><br>`
+  tools += `<span id='logout'><a title="Click to logout" href="/account/logout">Logout</a></span>`
+  } else {
+    tools += `<a title="Click to log in" href="/account/login">Login</a>` 
+  }
+  return tools
+}
+
+Util.accContent = async function (locals, req, res, next) {
+  let accInfo = await accModel.getAccountByID(locals.accountData.account_id)
+  let content = `<h2>Greetigs, ${accInfo.account_firstname}</h2>`
+  let type = accInfo.account_type
+  content += "<br><div class='dashLink'>"
+  content += "<a href='/account/edit'>Edit Account</a>"
+  if (type == 'Employee' || type == 'Admin') { 
+    content += "<br><br><br><a href='/inv/management'>Manager Dashboard</a>"
+  }
+  content += '</div>'
+  return content
+}
 
 /* **************************************
 * Build the classification view HTML
@@ -153,5 +178,15 @@ Util.checkJWTToken = (req, res, next) => {
     return res.redirect("/account/login")
   }
  }
- 
+
+ Util.checkEditRights = async function (req, res, next) {
+  let accInfo = await accModel.getAccountByID(res.locals.accountData.account_id)
+  let type = accInfo.account_type
+  if (type == 'Admin' || type == 'Employee') {
+    next()
+  } else {
+    req.flash("notice", "This page is restrict, please log in using an account with appropiate permissions.")
+    return res.redirect("/account/login")
+  }
+ }
 module.exports = Util

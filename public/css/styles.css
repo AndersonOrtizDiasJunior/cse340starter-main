@@ -7,7 +7,7 @@
 
 #wrapper {
   padding: 10px;
-} 
+}
 
 header {
   display: flex;
@@ -15,7 +15,8 @@ header {
   justify-content: space-between;
 }
 
-.siteName a, #tools a {
+.siteName a,
+#tools a {
   text-decoration: none;
   color: black;
 }
@@ -72,7 +73,7 @@ nav ul {
 }
 
 nav ul li {
-  padding: 10px 5% 10px 0 ;
+  padding: 10px 5% 10px 0;
 }
 
 #tools {
@@ -128,7 +129,7 @@ nav ul li {
   text-align: center;
 }
 
-#errorNotFound img{
+#errorNotFound img {
   width: 90%;
 }
 
@@ -140,7 +141,7 @@ nav ul li {
   padding: 5%;
 }
 
-#carDetails img{
+#carDetails img {
   width: 100%;
 }
 
@@ -150,10 +151,10 @@ nav ul li {
 }
 
 #carDescription li {
-list-style: none;
+  list-style: none;
 }
 
-.accountForm{
+.accountForm {
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -165,7 +166,9 @@ list-style: none;
   border-radius: 15px;
 }
 
-.accountForm input, .accountForm select, .accountForm textarea {
+.accountForm input,
+.accountForm select,
+.accountForm textarea {
   width: 80%;
   height: 3em;
   border-radius: 15px;
@@ -189,47 +192,52 @@ list-style: none;
   color: white;
   background-color: blue;
 }
+
 .accountForm .field {
   margin-left: 10%;
   text-align: left;
 }
 
-input:required:invalid, input:focus:invalid {
+input:required:invalid,
+input:focus:invalid {
   border-color: red;
   color: red;
- }
+}
 
 input:required:valid {
-    border-color: black;
-    color: black;
-  }
+  border-color: black;
+  color: black;
+}
 
-  .accountForm .field span {
-    font-size: .5em;
-  }
+.accountForm .field span {
+  font-size: .5em;
+}
 
-  #managerDash {
-    text-align: center;
-    font-size: 2em;
-  }
+.dashLink {
+  text-align: center;
+  font-size: 2em;
+}
 
-  #managerDash a{
-    text-align: center;
-    background-color: #11B5D6;
-    padding: 15px;
-    margin-bottom: 60px;
-    text-decoration: none;
-    border-radius: 20px;
-    color: white;
-  }
+.dashLink a {
+  text-align: center;
+  background-color: #11B5D6;
+  padding: 15px;
+  margin-bottom: 60px;
+  text-decoration: none;
+  border-radius: 20px;
+  color: white;
+}
 
+#logout {
+  font-size: .8em;
+}
 
-@media (min-width:961px)  {
+@media (min-width:961px) {
   body {
     background-image: url('/images/site/checkerboard.jpg');
-    background-size:contain;
+    background-size: contain;
   }
-  
+
   #wrapper {
     align-self: center;
     background-color: white;
@@ -247,19 +255,19 @@ input:required:valid {
   #content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows:.35fr repeat(2, .5fr);
+    grid-template-rows: .35fr repeat(2, .5fr);
   }
-  
+
   #upgradeTitle {
-    grid-column:1;
+    grid-column: 1;
     grid-row: 1;
   }
-  
+
   #reviewTitle {
     grid-column: 2;
     grid-row: 1;
   }
-  
+
   #reviewContent {
     grid-column: 2;
     grid-row-start: 2;
@@ -268,7 +276,7 @@ input:required:valid {
 
   #inv-display {
     display: grid;
-    grid-template-columns:1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     column-gap: 20px;
   }
 
@@ -277,7 +285,7 @@ input:required:valid {
     align-items: center;
   }
 
-  #carDetails img{
+  #carDetails img {
     width: 50%;
     height: 50%;
   }

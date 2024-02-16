@@ -1,0 +1,56 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+  <%- messages() %>
+
+  <a href="/account">Return</a>
+  <form action="/account/edit" method="post" class="accountForm" id="updateForm">
+    <input type="hidden" name="account_id"
+<% if(locals.account_id) { %> value="<%= locals.account_id %>"
+<% } %>>
+<div class="container">
+    <div class="field">
+        <label for="account_firstname"><b>First Name</b></label><br>
+        <input type="text" placeholder="Enter First Name" name="account_firstname" required  value="<%= locals.account_firstname %>">
+    </div><br><br>
+
+    <div class="field">
+        <label for="account_lastname"><b>Last Name</b></label><br>
+        <input type="text" placeholder="Enter Last Name" name="account_lastname" required  value="<%= locals.account_lastname %>">
+    </div><br><br>
+
+    <div class="field">
+        <label for="account_email"><b>Email</b></label><br>
+        <input type="email" placeholder="Enter Email" name="account_email" required value="<%= locals.account_email %>">
+    </div><br><br>
+
+    <button type="submit">Update</button>
+</div>
+</form>
+<br><br>
+<form action="/account/pass/edit" method="post" class="accountForm" id="updateForm">
+    <input type="hidden" name="account_id"
+<% if(locals.account_id) { %> value="<%= locals.account_id %>"
+<% } %>>
+<div class="container">
+        <label for="account_password"><b>Change Your Password</b></label><br>
+        <p>Warning: updating this information you change your current Password. <br>A Password must be at least 12 characters long and contain at least one number, one uppercase letter, one lowercase letter, and one special character.</p>
+        <input type="password" placeholder="Enter Password" name="account_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{12,}" title="Password must be at least 12 characters long and contain at least one number, one uppercase letter, one lowercase letter, and one special character" required>
+<br><br>
+
+    <button type="submit">Update</button>
+</div>
+</form>
+   
+<script src="../../js/inv-update.js"></script>
