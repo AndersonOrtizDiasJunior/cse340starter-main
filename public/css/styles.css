@@ -40,30 +40,42 @@ main {
 #hero {
   margin: 5%;
   width: 90%;
-  position: relative;
+  height: 100%;
+  display: grid;
+  align-items: last baseline;
 }
 
 #heroImg {
   z-index: 0;
-  position: absolute;
   left: 0;
   right: 0;
   margin: auto;
+  grid-area: 1 / 1 / 2 / 2;
+  width: 100%;
 }
 
 #heroBox {
+  text-align: center;
   font-size: 1.5em;
-  color: #11B5D6;
-  background-color: rgba(255, 255, 255, 0.3);
-  position: relative;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.723);
   z-index: 1;
   padding: 10px;
-  width: fit-content;
+  grid-area: 1 / 1 / 2 / 2;
+  width: 100%;
 }
 
-#heroBox img {
-  width: 70%;
-  margin-top: 5%;
+#heroBox a {
+  text-decoration: none;
+  background-color: white;
+  border-radius: 35px;
+  padding: 10px;
+  color: black;
+}
+
+#heroBox a:hover {
+  background-color: red;
+  color: white;
 }
 
 nav ul {

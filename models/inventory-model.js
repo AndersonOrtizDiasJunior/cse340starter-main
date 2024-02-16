@@ -110,6 +110,20 @@ async function updateInventory(
 }
 
 /* ***************************
+ *  Get Random Inventory
+ * ************************** */
+async function getHighlightCar()  {
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.inventory ORDER BY RANDOM() LIMIT 1`
+    )
+    return data.rows[0]
+  } catch (error) {
+    console.error("getHighlightCar error" + error.status)
+  }
+}
+
+/* ***************************
  *  Delete Inventory Item
  * ************************** */
 async function deleteInventoryItem(inv_id) {
@@ -122,4 +136,4 @@ async function deleteInventoryItem(inv_id) {
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getInventoryById, getError, addClassification, addInventory, deleteInventoryItem, updateInventory, getNotEmptyClassifications}
+module.exports = {getClassifications, getInventoryByClassificationId, getInventoryById, getError, addClassification, addInventory, deleteInventoryItem, updateInventory, getNotEmptyClassifications, getHighlightCar}
